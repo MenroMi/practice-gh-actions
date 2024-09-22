@@ -1,0 +1,38 @@
+name: Lint-Test
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: install node
+        uses: actions/setup-node@v4
+      - name: install deps
+        run: npm ci
+      - name: execute test
+        run: npm run test
+  lint:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: install node
+        uses: actions/setup-node@v4
+      - name: install deps
+        run: npm ci
+      - name: execute lint
+        run: npm run lint
+  deploy:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: install node
+        uses: actions/setup-node@v4
+      - name: install deps
+        run: npm ci
+      - name: execute build the project
+        run: npm run build

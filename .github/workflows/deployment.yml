@@ -1,0 +1,15 @@
+name: Deploy Application
+on: issues
+jobs:
+  output-event-details:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: install node
+        uses: actions/setup-node@v4
+      - name: install deps
+        run: npm ci
+      - name: output event details
+        run: echo "${{ toJSON(github) }}"
+
